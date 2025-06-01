@@ -1,30 +1,21 @@
+// /src/screens/Profile/ProfileScreen.tsx
+
 import React, { useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  StyleSheet,
-  SafeAreaView
-} from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, SafeAreaView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useAuth } from '@contexts/AuthContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { colors } from '@styles/colors';
-import { fonts } from '@styles/fonts';
+import { useAuth } from '../../contexts/AuthContext';
 
-const ProfileScreen = ({ navigation }: any) => {
+const ProfileScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const { user, signOut } = useAuth();
-  const goToEdit = () => navigation.navigate('EditProfile');
-
-  const [storedEmail, setStoredEmail] = useState<string>('');
+  const [storedAvatar, setStoredAvatar] = useState<string | null>(null);
 
   useEffect(() => {
-    const loadData = async () => {
-      const email = await AsyncStorage.getItem('profile_email');
-      if (email) setStoredEmail(email);
+    const carregarAvatar = async () => {
+      const avatar = await AsyncStorage.getItem('@sysweather:avatar');
+      if (avatar) setStoredAvatar(avatar);
     };
-    const unsubscribe = navigation.addListener('focus', loadData);
+    const unsubscribe = navigation.addListener('focus', carregarAvatar);
     return unsubscribe;
   }, [navigation]);
 
@@ -33,22 +24,29 @@ const ProfileScreen = ({ navigation }: any) => {
       <View style={styles.header}>
         <Text style={styles.headerText}>Perfil</Text>
       </View>
+
       <View style={styles.avatarWrapper}>
-        <Image source={require('../../assets/icons/user-avatar.png')} style={styles.avatar} />
-        <TouchableOpacity style={styles.editIcon} onPress={() => navigation.navigate('ChangePhoto')}>
+        <Image
+          source={
+            storedAvatar
+              ? { uri: storedAvatar }
+              : require('../../../assets/icons/user-avatar.png')
+          }
+          style={styles.avatar}
+        />
+        <TouchableOpacity
+          style={styles.editIcon}
+          onPress={() => navigation.navigate('ChangePhotoScreen')}
+        >
           <Ionicons name="pencil" size={16} color="#fff" />
         </TouchableOpacity>
       </View>
-      <Text style={styles.name}>{user?.name || 'Usuário'}</Text>
-      <View style={styles.infoRow}>
-        <Text style={styles.label}>Email :</Text>
-        <Text style={styles.value}>{storedEmail || user?.email || ''}</Text>
-        <TouchableOpacity onPress={goToEdit}>
-          <Ionicons name="pencil" size={16} color="#000" style={styles.iconEdit} />
-        </TouchableOpacity>
-      </View>
-      <TouchableOpacity style={styles.logoutButton} onPress={signOut}>
-        <Text style={styles.logoutButtonText}>Logout</Text>
+
+      <Text style={styles.nome}>{user?.name || 'Usuário'}</Text>
+      <Text style={styles.campo}>E-mail: {user?.email}</Text>
+
+      <TouchableOpacity style={styles.botaoSair} onPress={signOut}>
+        <Text style={styles.textoBotao}>Sair</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -59,83 +57,65 @@ export default ProfileScreen;
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    width: '100%',
-    backgroundColor: colors.white,
+    backgroundColor: '#FFFFFF',
     alignItems: 'center',
-    paddingTop: 100
+    paddingTop: 100,
   },
   header: {
     position: 'absolute',
     top: 0,
     width: '100%',
     height: 79,
-    backgroundColor: colors.primary,
+    backgroundColor: '#28A745',
     justifyContent: 'center',
     alignItems: 'center',
-    zIndex: 10
+    zIndex: 10,
   },
   headerText: {
-    color: '#fff',
-    fontSize: fonts.size.title,
-    fontWeight: '700'
+    color: '#FFFFFF',
+    fontSize: 22,
+    fontWeight: '700',
   },
   avatarWrapper: {
     alignItems: 'center',
     position: 'relative',
-    marginBottom: 16
+    marginBottom: 16,
   },
   avatar: {
     width: 120,
     height: 120,
     borderRadius: 60,
-    backgroundColor: '#eaeaea'
+    backgroundColor: '#EFEFEF',
   },
   editIcon: {
     position: 'absolute',
-    right: 0,
-    bottom: 0,
-    backgroundColor: colors.success,
+    right: 8,
+    bottom: 8,
+    backgroundColor: '#1E90FF',
     borderRadius: 12,
-    padding: 6
+    padding: 6,
   },
-  name: {
-    fontSize: fonts.size.large,
+  nome: {
+    fontSize: 20,
     fontWeight: '600',
-    textAlign: 'center',
+    color: '#333333',
     marginBottom: 24,
-    color: '#333'
   },
-  infoRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  campo: {
+    fontSize: 16,
+    color: '#555555',
     marginBottom: 12,
-    width: '90%'
   },
-  label: {
-    fontWeight: 'bold',
-    width: 90,
-    fontSize: 15,
-    color: '#555'
-  },
-  value: {
-    flex: 1,
-    fontSize: 15,
-    color: '#222'
-  },
-  iconEdit: {
-    marginLeft: 8
-  },
-  logoutButton: {
-    backgroundColor: colors.danger,
-    paddingVertical: 14,
+  botaoSair: {
+    backgroundColor: '#FF4C4C',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
     borderRadius: 8,
-    marginTop: 30,
-    width: '90%',
-    alignItems: 'center'
+    marginTop: 40,
   },
-  logoutButtonText: {
-    color: colors.white,
-    fontSize: fonts.size.medium,
-    fontWeight: '600'
-  }
+  textoBotao: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600',
+  },
 });

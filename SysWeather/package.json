@@ -12,6 +12,7 @@
   "dependencies": {
     "@expo/metro-runtime": "~4.0.1",
     "@expo/vector-icons": "^14.0.2",
+    "@lottiefiles/dotlottie-react": "^0.6.5",
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-native-community/datetimepicker": "^8.3.0",
     "@react-native-community/netinfo": "^11.4.1",
@@ -28,6 +29,7 @@
     "expo": "~52.0.38",
     "expo-constants": "~17.0.8",
     "expo-file-system": "~18.0.12",
+    "expo-image-picker": "^16.1.4",
     "expo-status-bar": "~2.0.1",
     "express": "^5.1.0",
     "lottie-ios": "^4.5.1",
