@@ -13,21 +13,17 @@ export type RootStackParamList = {
   MainApp: undefined;
 };
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator();
 
 const AppNavigator = () => {
-  const { user } = useAuth();
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {!user ? (
-        <>
-          <Stack.Screen name="Splash" component={SplashScreen} />
-          <Stack.Screen name="SignIn" component={SignInScreen} />
-          <Stack.Screen name="SignUp" component={SignUpScreen} />
-        </>
-      ) : (
-        <Stack.Screen name="MainApp" component={TabNavigator} />
-      )}
+      <Stack.Screen name="Splash" component={SplashScreen} />
+      <Stack.Screen name="SignIn" component={SignInScreen} />
+      <Stack.Screen name="SignUp" component={SignUpScreen} />
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="CityAlerts" component={CityAlertsScreen} />
+      {/* outras telas */}
     </Stack.Navigator>
   );
 };
