@@ -1,3 +1,5 @@
+// /src/styles/fonts.ts
+
 export const fonts = {
   regular: 'System',
   bold: 'System',

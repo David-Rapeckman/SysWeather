@@ -1,63 +1,59 @@
-// /src/contexts/AuthContext.tsx
-
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-import { User } from '../types/auth';
 
-// Definição explícita do formato de retorno da API de autenticação
-interface AuthResponse {
-  user: User;
-  token: string;
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  role: string;
+  city: string;
 }
-
 interface AuthContextType {
   user: User | null;
+  token: string | null;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
 }
 
-const AuthContext = createContext<AuthContextType>({} as AuthContextType);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
 
-  useEffect(() => {
-    loadStoredUser();
-  }, []);
-
-  const loadStoredUser = async () => {
-    const storedUserJson = await AsyncStorage.getItem('@sysweather:user');
-    if (storedUserJson) {
-      const parsed: User = JSON.parse(storedUserJson);
-      setUser(parsed);
-    }
-  };
-
+  // fake sign in (sempre aceita qualquer usuário)
   const signIn = async (email: string, password: string) => {
-    // Forçar axios a entender que o response.data será AuthResponse
-    const response = await axios.post<AuthResponse>('http://localhost:3000/auth/signin', {
+    const fakeUser: User = {
+      id: 1,
+      name: "Usuário Teste",
       email,
-      password,
-    });
-
-    const { user: loggedUser, token } = response.data;
-    await AsyncStorage.setItem('@sysweather:user', JSON.stringify(loggedUser));
-    await AsyncStorage.setItem('@sysweather:token', token);
-    setUser(loggedUser);
+      role: "user",
+      city: "São Paulo"
+    };
+    setUser(fakeUser);
+    await AsyncStorage.setItem("@user", JSON.stringify(fakeUser));
   };
 
   const signOut = async () => {
-    await AsyncStorage.removeItem('@sysweather:user');
-    await AsyncStorage.removeItem('@sysweather:token');
     setUser(null);
+    await AsyncStorage.removeItem("@user");
   };
 
+  useEffect(() => {
+    (async () => {
+      const data = await AsyncStorage.getItem("@user");
+      if (data) setUser(JSON.parse(data));
+    })();
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ user, signIn, signOut }}>
+    <AuthContext.Provider value={{ user, token: null, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+  const ctx = useContext(AuthContext);
+  if (!ctx) throw new Error('useAuth precisa estar dentro de AuthProvider');
+  return ctx;
+};

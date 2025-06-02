@@ -1,3 +1,5 @@
+// /src/services/weatherService.ts
+
 import axios from 'axios';
 
 export const weatherService = axios.create({

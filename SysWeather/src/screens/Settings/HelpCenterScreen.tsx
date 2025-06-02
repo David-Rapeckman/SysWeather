@@ -1,10 +1,12 @@
+// /src/screens/Settings/HelpCenterScreen.tsx
+
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '@styles/colors';
 import { fonts } from '@styles/fonts';
 
-const HelpCenterScreen = ({ navigation }: any) => (
+const HelpCenterScreen: React.FC<{ navigation: any }> = ({ navigation }) => (
   <SafeAreaView style={styles.safeArea}>
     <View style={styles.header}>
       <Text style={styles.headerText}>Ajuda</Text>

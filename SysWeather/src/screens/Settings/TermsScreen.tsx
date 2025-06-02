@@ -3,19 +3,18 @@
 import React from 'react';
 import { View, ScrollView, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { fonts } from '@styles/fonts';
 
 const TermsScreen: React.FC<{ navigation: any }> = ({ navigation }) => (
   <SafeAreaView style={styles.safeArea}>
     <View style={styles.header}>
-      <Text style={styles.headerText}>Terms</Text>
+      <Text style={styles.headerText}>Termos</Text>
     </View>
-
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
         <Ionicons name="arrow-back" size={24} color="#2e86de" />
         <Text style={styles.backText}>Voltar</Text>
       </TouchableOpacity>
-
       <Text style={styles.title}>Termos de Serviço</Text>
       <Text style={styles.text}>
         Ao utilizar este aplicativo, você concorda com todos os termos e condições aqui descritos.
@@ -34,7 +33,7 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingTop: 100,
+    paddingTop: 100
   },
   header: {
     position: 'absolute',
@@ -44,38 +43,38 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(40, 167, 69, 0.7)',
     justifyContent: 'center',
     alignItems: 'center',
-    zIndex: 10,
+    zIndex: 10
   },
   headerText: {
     color: '#fff',
-    fontSize: 22,
-    fontWeight: '700',
+    fontSize: fonts.size.title,
+    fontWeight: '700'
   },
   scrollContainer: {
     paddingHorizontal: 20,
     paddingTop: 20,
-    paddingBottom: 40,
+    paddingBottom: 40
   },
   backButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 20
   },
   backText: {
     marginLeft: 8,
-    fontSize: 16,
-    color: '#2e86de',
+    fontSize: fonts.size.medium,
+    color: '#2e86de'
   },
   title: {
-    fontSize: 22,
+    fontSize: fonts.size.title,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: '#000',
+    color: '#000'
   },
   text: {
-    fontSize: 16,
+    fontSize: fonts.size.medium,
     marginBottom: 15,
     lineHeight: 22,
-    color: '#000',
-  },
+    color: '#000'
+  }
 });

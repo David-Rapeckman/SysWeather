@@ -1,10 +1,19 @@
 // /src/screens/Profile/ProfileScreen.tsx
 
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, SafeAreaView } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  SafeAreaView
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '@contexts/AuthContext';
+import { colors } from '@styles/colors';
+import { fonts } from '@styles/fonts';
 
 const ProfileScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const { user, signOut } = useAuth();
@@ -36,17 +45,18 @@ const ProfileScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
         />
         <TouchableOpacity
           style={styles.editIcon}
-          onPress={() => navigation.navigate('ChangePhotoScreen')}
+          onPress={() => navigation.navigate('ChangePhoto')}
         >
           <Ionicons name="pencil" size={16} color="#fff" />
         </TouchableOpacity>
       </View>
 
-      <Text style={styles.nome}>{user?.name || 'Usuário'}</Text>
-      <Text style={styles.campo}>E-mail: {user?.email}</Text>
+      <Text style={styles.name}>{user?.name || 'Usuário'}</Text>
+      <Text style={styles.field}>E-mail: {user?.email}</Text>
+      <Text style={styles.field}>Cidade: {user?.city}</Text>
 
-      <TouchableOpacity style={styles.botaoSair} onPress={signOut}>
-        <Text style={styles.textoBotao}>Sair</Text>
+      <TouchableOpacity style={styles.logoutButton} onPress={signOut}>
+        <Text style={styles.logoutText}>Sair</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -59,63 +69,63 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
-    paddingTop: 100,
+    paddingTop: 100
   },
   header: {
     position: 'absolute',
     top: 0,
     width: '100%',
     height: 79,
-    backgroundColor: '#28A745',
+    backgroundColor: colors.primary,
     justifyContent: 'center',
     alignItems: 'center',
-    zIndex: 10,
+    zIndex: 10
   },
   headerText: {
     color: '#FFFFFF',
-    fontSize: 22,
-    fontWeight: '700',
+    fontSize: fonts.size.title,
+    fontWeight: '700'
   },
   avatarWrapper: {
     alignItems: 'center',
     position: 'relative',
-    marginBottom: 16,
+    marginBottom: 16
   },
   avatar: {
     width: 120,
     height: 120,
     borderRadius: 60,
-    backgroundColor: '#EFEFEF',
+    backgroundColor: '#EFEFEF'
   },
   editIcon: {
     position: 'absolute',
     right: 8,
     bottom: 8,
-    backgroundColor: '#1E90FF',
+    backgroundColor: colors.primary,
     borderRadius: 12,
-    padding: 6,
+    padding: 6
   },
-  nome: {
+  name: {
     fontSize: 20,
     fontWeight: '600',
-    color: '#333333',
-    marginBottom: 24,
+    color: '#333',
+    marginBottom: 12
   },
-  campo: {
+  field: {
     fontSize: 16,
-    color: '#555555',
-    marginBottom: 12,
+    color: '#555',
+    marginBottom: 8
   },
-  botaoSair: {
-    backgroundColor: '#FF4C4C',
+  logoutButton: {
+    backgroundColor: colors.danger,
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 8,
-    marginTop: 40,
+    marginTop: 40
   },
-  textoBotao: {
+  logoutText: {
     color: '#FFFFFF',
     fontSize: 16,
-    fontWeight: '600',
-  },
+    fontWeight: '600'
+  }
 });

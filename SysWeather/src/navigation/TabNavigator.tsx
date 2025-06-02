@@ -1,36 +1,44 @@
+// /src/navigation/TabNavigator.tsx
+
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
-import CitiesList from '@screens/Cities/CitiesList';
-import CityDetails from '@screens/Cities/CityDetails';
-import AddCityScreen from '@screens/Cities/AddCityScreen';
+import { RouteProp } from '@react-navigation/native';
 import HomeScreen from '@screens/Home/HomeScreen';
+import CitiesList from '@screens/Cities/CitiesList';
 import ProfileScreen from '@screens/Profile/ProfileScreen';
 import SettingsScreen from '@screens/Settings/SettingsScreen';
 import { colors } from '@styles/colors';
 
-const Tab = createBottomTabNavigator();
+type TabParamList = {
+  Home: undefined;
+  Cities: undefined;
+  Profile: undefined;
+  Settings: undefined;
+};
 
-const TabNavigator = () => (
+const Tab = createBottomTabNavigator<TabParamList>();
+
+const TabNavigator: React.FC = () => (
   <Tab.Navigator
-    screenOptions={({ route }) => ({
+    screenOptions={({
+      route,
+    }: {
+      route: RouteProp<TabParamList, keyof TabParamList>;
+    }) => ({
       headerShown: false,
-      tabBarIcon: ({ color, size }) => {
+      tabBarIcon: ({
+        color,
+        size,
+      }: {
+        color: string;
+        size: number;
+      }) => {
         let iconName: keyof typeof Ionicons.glyphMap = 'ellipse';
-        switch (route.name) {
-          case 'Home':
-            iconName = 'home-outline';
-            break;
-          case 'Cities':
-            iconName = 'location-outline';
-            break;
-          case 'Profile':
-            iconName = 'person-outline';
-            break;
-          case 'Settings':
-            iconName = 'settings-outline';
-            break;
-        }
+        if (route.name === 'Home') iconName = 'home-outline';
+        if (route.name === 'Cities') iconName = 'location-outline';
+        if (route.name === 'Profile') iconName = 'person-outline';
+        if (route.name === 'Settings') iconName = 'settings-outline';
         return <Ionicons name={iconName} size={size} color={color} />;
       },
       tabBarActiveTintColor: colors.primary,
@@ -39,12 +47,12 @@ const TabNavigator = () => (
         backgroundColor: colors.white,
         borderTopWidth: 1,
         borderTopColor: colors.lightGray,
-        height: 60
+        height: 60,
       },
       tabBarLabelStyle: {
         fontSize: 12,
-        fontWeight: '600'
-      }
+        fontWeight: '600',
+      },
     })}
   >
     <Tab.Screen name="Home" component={HomeScreen} />

@@ -1,3 +1,5 @@
+// /src/screens/Profile/EditProfileScreen.tsx
+
 import React, { useState, useEffect } from 'react';
 import {
   View,
@@ -15,7 +17,7 @@ import { colors } from '@styles/colors';
 import { fonts } from '@styles/fonts';
 import { metrics } from '@styles/metrics';
 
-const EditProfileScreen = ({ navigation }: any) => {
+const EditProfileScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [birthDate, setBirthDate] = useState<Date>(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -23,13 +25,12 @@ const EditProfileScreen = ({ navigation }: any) => {
   const [showErrorModal, setShowErrorModal] = useState(false);
 
   useEffect(() => {
-    const loadProfile = async () => {
+    (async () => {
       const e = await AsyncStorage.getItem('profile_email');
       const b = await AsyncStorage.getItem('profile_birthdate');
       if (e) setEmail(e);
       if (b) setBirthDate(new Date(b));
-    };
-    loadProfile();
+    })();
   }, []);
 
   const formatDate = (date: Date) => {
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#f4f6f8'
+    backgroundColor: '#F5F5F5'
   },
   header: {
     position: 'absolute',

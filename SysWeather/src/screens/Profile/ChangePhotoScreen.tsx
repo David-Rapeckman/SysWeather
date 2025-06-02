@@ -1,9 +1,19 @@
 // /src/screens/Profile/ChangePhotoScreen.tsx
 
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, Alert, SafeAreaView } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Alert,
+  SafeAreaView
+} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { colors } from '@styles/colors';
+import { fonts } from '@styles/fonts';
 
 const ChangePhotoScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [uri, setUri] = useState<string | null>(null);
@@ -11,9 +21,8 @@ const ChangePhotoScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const selecionarDaGaleria = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      quality: 0.7,
+      quality: 0.7
     });
-
     if (!result.canceled) {
       const pickedUri = result.assets[0].uri;
       setUri(pickedUri);
@@ -72,47 +81,47 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
-    paddingTop: 100,
+    paddingTop: 100
   },
   header: {
     position: 'absolute',
     top: 0,
     width: '100%',
     height: 79,
-    backgroundColor: '#28A745',
+    backgroundColor: colors.success,
     justifyContent: 'center',
     alignItems: 'center',
-    zIndex: 10,
+    zIndex: 10
   },
   headerText: {
     color: '#FFFFFF',
-    fontSize: 22,
-    fontWeight: '700',
+    fontSize: fonts.size.title,
+    fontWeight: '700'
   },
   avatarPreview: {
     width: 150,
     height: 150,
     borderRadius: 75,
     backgroundColor: '#EFEFEF',
-    marginBottom: 24,
+    marginBottom: 24
   },
   button: {
     width: '80%',
-    backgroundColor: '#1E90FF',
+    backgroundColor: colors.primary,
     paddingVertical: 12,
     borderRadius: 8,
     marginTop: 16,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   buttonText: {
     color: '#FFFFFF',
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: '600'
   },
   buttonSave: {
-    backgroundColor: '#28A745',
+    backgroundColor: colors.success
   },
   saveText: {
-    fontWeight: '700',
-  },
+    fontWeight: '700'
+  }
 });

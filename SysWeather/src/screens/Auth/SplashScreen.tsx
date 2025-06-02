@@ -1,7 +1,5 @@
-// /src/screens/Auth/SplashScreen.tsx
-
 import React, { useEffect } from 'react';
-import { StyleSheet, SafeAreaView } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { useNavigation } from '@react-navigation/native';
 
@@ -9,35 +7,27 @@ const SplashScreen: React.FC = () => {
   const navigation = useNavigation<any>();
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
+    const timer = setTimeout(() => {
       navigation.replace('SignIn');
-    }, 3000);
-    return () => clearTimeout(timeout);
+    }, 2000);
+    return () => clearTimeout(timer);
   }, [navigation]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <LottieView
         source={require('../../../assets/animations/weather-splash.json')}
         autoPlay
-        loop
+        loop={false}
         style={styles.animation}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 
-export default SplashScreen;
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  animation: {
-    width: 200,
-    height: 200,
-  },
+  container: { flex: 1, backgroundColor: '#1E88E5', justifyContent: 'center', alignItems: 'center' },
+  animation: { width: 250, height: 250 }
 });
+
+export default SplashScreen;

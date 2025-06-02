@@ -1,3 +1,5 @@
+// /src/components/Button.tsx
+
 import React from 'react';
 import { Text, TouchableOpacity, StyleSheet, TouchableOpacityProps } from 'react-native';
 import { colors } from '@styles/colors';

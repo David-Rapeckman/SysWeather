@@ -1,10 +1,12 @@
+// /src/screens/Settings/AboutAppScreen.tsx
+
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '@styles/colors';
 import { fonts } from '@styles/fonts';
 
-const AboutAppScreen = ({ navigation }: any) => (
+const AboutAppScreen: React.FC<{ navigation: any }> = ({ navigation }) => (
   <SafeAreaView style={styles.safeArea}>
     <View style={styles.header}>
       <Text style={styles.headerText}>Sobre</Text>
