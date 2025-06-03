@@ -57,16 +57,16 @@ SysWeather é um aplicativo em React Native que exibe informações meteorológi
    expo start
    ```
 
-- Tela Principal
+## Tela Principal
 
 A tela inicial exibirá cards para as seguintes cidades predefinidas:
-
-São Paulo
-Rio de Janeiro
-Belo Horizonte
-Curitiba
-Porto Alegre
-Salvador
+|--------------
+|São Paulo|
+|Rio de Janeiro|
+|Belo Horizonte|
+|Curitiba|
+|Porto Alegre|
+|Salvador|
 
 
 ## Detalhes do Card de Cidade
