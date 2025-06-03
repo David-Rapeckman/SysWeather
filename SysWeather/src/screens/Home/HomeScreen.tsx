@@ -14,15 +14,13 @@ import { api } from '@services/api';
 import { colors } from '@styles/colors';
 import { fonts } from '@styles/fonts';
 import { globalStyles } from '@styles/global';
+import { useNavigation } from '@react-navigation/native';
 
-type Navigation = {
-  navigate: (screen: string) => void;
-};
-
-const HomeScreen: React.FC<{ navigation: Navigation }> = ({ navigation }) => {
+const HomeScreen: React.FC = () => {
   const [cities, setCities] = useState<City[]>([]);
   const [loading, setLoading] = useState(true);
   const [errorFetch, setErrorFetch] = useState('');
+  const navigation = useNavigation<any>();
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', fetchCities);
