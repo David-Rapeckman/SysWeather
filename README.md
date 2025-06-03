@@ -42,29 +42,21 @@ SysWeather é um aplicativo em React Native que exibe informações meteorológi
    ```bash
    git clone https://github.com/yourusername/SysWeather.git
    cd SysWeather
-Instale as dependências
-# Usando npm
-npm install
+   ```bash
 
-# Ou usando Yarn
-yarn install
-Inicie o servidor de desenvolvimento
-expo start
-Visualize o app
-Use o aplicativo Expo Go em um dispositivo físico ou em um emulador (Android Studio ou Xcode Simulator) para visualizar o SysWeather.
-Scripts Disponíveis
-
-No diretório do projeto, você pode executar:
-npm start ou yarn start
-Abre o Expo Metro Bundler.
-npm run android ou yarn android
-Inicia o app em um emulador Android ou dispositivo conectado.
-npm run ios ou yarn ios
-Inicia o app em um simulador iOS (apenas no macOS).
-npm run web ou yarn web
-Abre o app em um navegador via React Native for Web.
-Estrutura do Projeto
-
+2. Instale as dependências
+   ```bash
+   # Usando npm
+   npm install
+2.1. Ou usando Yarn
+    ```bash   
+   yarn install
+    ```bash
+ 
+3. Inicie o servidor de desenvolvimento
+   ```bash
+   npm start
+   ```bash
 
 Inicie a aplicação
 expo start
