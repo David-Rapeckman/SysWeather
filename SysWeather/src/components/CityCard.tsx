@@ -1,10 +1,10 @@
 // /src/components/CityCard.tsx
+
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { CityWithWeather } from '../types/city';
 import { colors } from '../styles/colors';
 import { fonts } from '../styles/fonts';
-import { metrics } from '../styles/metrics';
 
 interface CityCardProps {
   city: CityWithWeather;
@@ -12,12 +12,32 @@ interface CityCardProps {
 }
 
 const CityCard: React.FC<CityCardProps> = ({ city, onPress }) => {
+  /**
+   * Seleciona o ícone local baseado em city.mainCondition.
+   * Espera valores como “rain”, “thunderstorm”, “snow”, “clear”, “clouds”, “mist”, “fog”.
+   */
   const selecionarIcone = () => {
-    const cond = city.currentCondition.toLowerCase();
-    if (cond.includes('rain')) return require('../../assets/icons/rain.png');
-    if (cond.includes('thunderstorm')) return require('../../assets/icons/thunderstorm.png');
-    if (cond.includes('snow')) return require('../../assets/icons/snow.png');
-    return require('../../assets/icons/clear.png');
+    switch (city.mainCondition) {
+      case 'rain':
+        return require('../../assets/icons/rain.png');
+      case 'thunderstorm':
+        return require('../../assets/icons/thunderstorm.png');
+      case 'snow':
+        return require('../../assets/icons/snow.png');
+      case 'drizzle':
+        return require('../../assets/icons/drizzle.png');
+      case 'mist':
+      case 'fog':
+        return require('../../assets/icons/fog.png');
+      case 'clouds':
+        // Se quiser um ícone específico de nuvens, crie “clouds.png”. Aqui usamos o mist/fog de fallback:
+        return require('../../assets/icons/mist.png');
+      case 'clear':
+        return require('../../assets/icons/clear.png');
+      default:
+        // Caso seja alguma condição não prevista, exibe o logo genérico:
+        return require('../../assets/logo-weather.png');
+    }
   };
 
   return (
@@ -38,7 +58,9 @@ const CityCard: React.FC<CityCardProps> = ({ city, onPress }) => {
       ))}
 
       <View style={styles.separator} />
-      <Text style={styles.subtitle}>Mín: {Math.round(city.minTemp)}°C   Máx: {Math.round(city.maxTemp)}°C</Text>
+      <Text style={styles.subtitle}>
+        Mín: {Math.round(city.minTemp)}°C   Máx: {Math.round(city.maxTemp)}°C
+      </Text>
       <Text style={styles.subtitle}>Chuva: {city.rainChance}%</Text>
     </TouchableOpacity>
   );
@@ -48,18 +70,18 @@ export default CityCard;
 
 const styles = StyleSheet.create({
   card: {
-    width: 260,
+    width: 260,                // largura fixa de 260 (antes usava metrics.cardWidth)
     backgroundColor: '#FFF',
     borderRadius: 16,
     padding: 16,
     marginVertical: 12,
     marginHorizontal: 8,
-    // sombra leve para iOS:
+    // sombra leve iOS:
     shadowColor: '#000',
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 4 },
     shadowRadius: 6,
-    // sombra para Android:
+    // sombra Android:
     elevation: 3,
   },
   header: {

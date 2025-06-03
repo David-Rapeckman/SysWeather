@@ -1,4 +1,3 @@
-// /src/services/api.ts
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { CityWithWeather } from '../types/city';
@@ -109,8 +108,8 @@ export const api = {
       const currentTemp: number = data.main.temp;
       const maxTemp: number = data.main.temp_max;
       const minTemp: number = data.main.temp_min;
-      const conditionDesc: string = data.weather[0].description;
-      const mainCondition: string = data.weather[0].main.toLowerCase();
+      const conditionDesc: string = data.weather[0].description;           // ex: “chuva leve”
+      const mainCondition: string = data.weather[0].main.toLowerCase();    // ex: “rain”, “clear” etc.
 
       const preventions: string[] = [];
       if (mainCondition.includes('rain')) {
@@ -137,6 +136,7 @@ export const api = {
 
       let rainChance = 0;
       if (data.rain && data.rain['1h']) {
+        // a API devolve precipitação em mm; aqui transformamos em % (ex: 0.5 mm/h → 5%)
         rainChance = Math.min(Math.round(data.rain['1h'] * 10), 100);
       }
 
@@ -145,6 +145,7 @@ export const api = {
         name: cityName,
         currentTemp,
         currentCondition: conditionDesc,
+        mainCondition,   // ← agora retornamos também
         maxTemp,
         minTemp,
         rainChance,

@@ -1,4 +1,3 @@
-// /src/screens/Home/HomeScreen.tsx
 import React, { useEffect, useState } from 'react';
 import {
   View,
@@ -27,10 +26,7 @@ const predefinedCities = [
 ];
 
 // Informações de abrigos e contato por cidade
-const sheltersByCity: Record<
-  string,
-  { address: string; phone: string }[]
-> = {
+const sheltersByCity: Record<string, { address: string; phone: string }[]> = {
   'São Paulo': [
     {
       address: 'Centro de Acolhida – Rua da Figueira, s/n, Sé, SP',
