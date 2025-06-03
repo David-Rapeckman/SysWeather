@@ -1,1 +1,23 @@
 node_modules/
+# Expo folders
+.expo/
+.expo-shared/
+
+# Expo cache
+.expo/cache/
+
+# Node modules
+node_modules/
+
+# Watchman’s metadata
+.expo-local/
+
+# iOS/Android build artifacts (if you have bare workflow folders)
+ios/Pods/
+/android/.gradle/
+/android/app/build/
+
+# Editor/project-specific files (optional)
+*.xcworkspace
+.idea/
+.vscode/
