@@ -45,6 +45,18 @@ export const api = {
   },
 
   signIn: async (email: string, password: string): Promise<User> => {
+    // Se for login de admin padrão:
+    if (email === 'admin' && password === 'admin123') {
+      return {
+        id: 0,
+        name: 'Administrador',
+        email: 'admin',
+        password: 'admin123',
+        role: 'admin',
+        city: ''
+      };
+    }
+    // Caso contrário, busca usuário normal no AsyncStorage
     const storedJson = await AsyncStorage.getItem(USER_KEY);
     if (!storedJson) {
       throw new Error('Nenhuma conta encontrada. Cadastre-se primeiro.');

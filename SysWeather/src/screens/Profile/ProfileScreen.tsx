@@ -11,6 +11,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAuth } from '@contexts/AuthContext';
+import Header from '@components/Header';
 import { colors } from '@styles/colors';
 import { fonts } from '@styles/fonts';
 
@@ -29,34 +30,34 @@ const ProfileScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Perfil</Text>
-      </View>
+      <Header title="Perfil" />
 
-      <View style={styles.avatarWrapper}>
-        <Image
-          source={
-            storedAvatar
-              ? { uri: storedAvatar }
-              : require('../../../assets/icons/user-avatar.png')
-          }
-          style={styles.avatar}
-        />
-        <TouchableOpacity
-          style={styles.editIcon}
-          onPress={() => navigation.navigate('ChangePhoto')}
-        >
-          <Ionicons name="pencil" size={16} color={colors.white} />
+      <View style={styles.content}>
+        <View style={styles.avatarWrapper}>
+          <Image
+            source={
+              storedAvatar
+                ? { uri: storedAvatar }
+                : require('../../../assets/icons/user-avatar.png')
+            }
+            style={styles.avatar}
+          />
+          <TouchableOpacity
+            style={styles.editIcon}
+            onPress={() => navigation.navigate('ChangePhoto')}
+          >
+            <Ionicons name="pencil" size={16} color={colors.white} />
+          </TouchableOpacity>
+        </View>
+
+        <Text style={styles.name}>{user?.name || 'Usuário'}</Text>
+        <Text style={styles.field}>E-mail: {user?.email}</Text>
+        <Text style={styles.field}>Cidade: {user?.city}</Text>
+
+        <TouchableOpacity style={styles.logoutButton} onPress={signOut}>
+          <Text style={styles.logoutText}>Sair</Text>
         </TouchableOpacity>
       </View>
-
-      <Text style={styles.name}>{user?.name || 'Usuário'}</Text>
-      <Text style={styles.field}>E-mail: {user?.email}</Text>
-      <Text style={styles.field}>Cidade: {user?.city}</Text>
-
-      <TouchableOpacity style={styles.logoutButton} onPress={signOut}>
-        <Text style={styles.logoutText}>Sair</Text>
-      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -66,24 +67,11 @@ export default ProfileScreen;
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.background
+  },
+  content: {
     alignItems: 'center',
     paddingTop: 100
-  },
-  header: {
-    position: 'absolute',
-    top: 0,
-    width: '100%',
-    height: 79,
-    backgroundColor: colors.primary,
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 10
-  },
-  headerText: {
-    color: colors.white,
-    fontSize: fonts.size.title,
-    fontWeight: '700'
   },
   avatarWrapper: {
     alignItems: 'center',
