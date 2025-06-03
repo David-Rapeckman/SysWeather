@@ -1,91 +1,51 @@
-import React, { useEffect, useState } from 'react';
+// /src/screens/Cities/CityDetails.tsx
+import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
-import axios from 'axios';
 import { useRoute, RouteProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../navigation/AppNavigator'; // ou centralize em types
-
+import { RootStackParamList } from '../../types/auth';
+import { colors } from '@styles/colors';
+import { fonts } from '@styles/fonts';
 
 type CityDetailsRouteProp = RouteProp<RootStackParamList, 'CityDetails'>;
-
-interface CityDetail {
-  id: number;
-  name: string;
-  country: string;
-  latitude: number;
-  longitude: number;
-  population: number;
-  weatherAlert: string | null;
-}
 
 const CityDetails: React.FC = () => {
   const route = useRoute<CityDetailsRouteProp>();
   const { cityId } = route.params;
-  const [city, setCity] = useState<CityDetail | null>(null);
-
-  useEffect(() => {
-    fetchCityDetails();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const fetchCityDetails = async () => {
-    const response = await axios.get<{ city: CityDetail }>(`http://localhost:3000/cities/${cityId}`);
-    setCity(response.data.city);
-  };
-
-  if (!city) {
-    return (
-      <View style={styles.loadingContainer}>
-        <Text style={styles.loadingText}>Carregando dados da cidade...</Text>
-      </View>
-    );
-  }
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>{city.name}</Text>
-      <Text style={styles.field}>País: {city.country}</Text>
-      <Text style={styles.field}>População: {city.population}</Text>
-      <Text style={styles.field}>
-        Local: {city.latitude.toFixed(4)}, {city.longitude.toFixed(4)}
-      </Text>
-      <Text style={styles.alert}>
-        Alerta Climático: {city.weatherAlert ?? 'Nenhum alerta no momento'}
-      </Text>
+      <Text style={styles.title}>Detalhes da Cidade</Text>
+      <Text style={styles.field}>ID: {cityId}</Text>
+      <Text style={styles.field}>Nome: Exemplo de Cidade</Text>
+      <Text style={styles.field}>País: Brasil</Text>
+      <Text style={styles.field}>População: 1.234.567</Text>
+      <Text style={styles.alert}>Alerta Climático: Nenhum alerta no momento</Text>
     </SafeAreaView>
   );
 };
 
 export default CityDetails;
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
-    backgroundColor: '#FFF'
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  loadingText: {
-    color: '#888'
+    backgroundColor: colors.background,
+    padding: 16
   },
   title: {
-    fontSize: 24,
+    fontSize: fonts.size.large,
     fontWeight: '700',
     marginBottom: 16,
-    color: '#333'
+    color: colors.accent
   },
   field: {
-    fontSize: 16,
+    fontSize: fonts.size.medium,
     marginBottom: 12,
-    color: '#555'
+    color: colors.white
   },
   alert: {
-    fontSize: 16,
+    fontSize: fonts.size.medium,
     marginTop: 24,
-    color: '#D32F2F'
+    color: '#ff4444'
   }
 });

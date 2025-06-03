@@ -1,8 +1,9 @@
+// /src/screens/Cities/CitiesList.tsx
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { City } from '../../types/city';
-import { cityService } from '@services/cityService';
+import { City } from '@services/api';
+import { api } from '@services/api';
 import { colors } from '@styles/colors';
 import { fonts } from '@styles/fonts';
 
@@ -11,12 +12,13 @@ const CitiesList: React.FC = () => {
   const navigation = useNavigation<any>();
 
   useEffect(() => {
-    fetchCities();
-  }, []);
+    const unsubscribe = navigation.addListener('focus', fetchCities);
+    return unsubscribe;
+  }, [navigation]);
 
   const fetchCities = async () => {
-    const response = await cityService.get<City[]>('/cities');
-    setCities(response.data);
+    const list = await api.getCities();
+    setCities(list);
   };
 
   const renderItem = ({ item }: { item: City }) => (
@@ -36,6 +38,12 @@ const CitiesList: React.FC = () => {
         renderItem={renderItem}
         ListEmptyComponent={<Text style={styles.empty}>Nenhuma cidade cadastrada.</Text>}
       />
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={() => navigation.navigate('AddCity')}
+      >
+        <Text style={styles.addText}>+ Adicionar Cidade</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -45,23 +53,42 @@ export default CitiesList;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
-    backgroundColor: '#FFF'
+    backgroundColor: colors.background,
+    padding: 16
   },
   card: {
     padding: 12,
     marginBottom: 8,
-    backgroundColor: '#B3E5FC',
+    backgroundColor: colors.lightGray,
     borderRadius: 8
   },
   name: {
-    fontSize: 18,
+    fontSize: fonts.size.large,
     fontWeight: '600',
-    color: '#01579B'
+    color: colors.accent
   },
   empty: {
     textAlign: 'center',
     marginTop: 20,
-    color: '#888'
+    color: colors.gray
+  },
+  addButton: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    backgroundColor: colors.primary,
+    borderRadius: 30,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 6,
+    elevation: 4
+  },
+  addText: {
+    color: colors.white,
+    fontSize: fonts.size.medium,
+    fontWeight: '600'
   }
 });

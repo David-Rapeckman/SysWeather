@@ -1,7 +1,9 @@
+// /src/screens/Auth/SplashScreen.tsx
 import React, { useEffect } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { useNavigation } from '@react-navigation/native';
+import { colors } from '@styles/colors';
 
 const SplashScreen: React.FC = () => {
   const navigation = useNavigation<any>();
@@ -26,8 +28,16 @@ const SplashScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#1E88E5', justifyContent: 'center', alignItems: 'center' },
-  animation: { width: 250, height: 250 }
+  container: {
+    flex: 1,
+    backgroundColor: colors.primary,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  animation: {
+    width: 250,
+    height: 250
+  }
 });
 
 export default SplashScreen;

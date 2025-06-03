@@ -1,5 +1,4 @@
 // /src/styles/fonts.ts
-
 export const fonts = {
   regular: 'System',
   bold: 'System',
@@ -7,6 +6,6 @@ export const fonts = {
     small: 12,
     medium: 16,
     large: 20,
-    title: 24
+    title: 28
   }
 };

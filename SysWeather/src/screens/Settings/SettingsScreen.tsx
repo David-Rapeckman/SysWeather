@@ -1,3 +1,4 @@
+// /src/screens/Settings/SettingsScreen.tsx
 import React, { useState } from 'react';
 import {
   View,
@@ -13,7 +14,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { colors } from '@styles/colors';
 import { fonts } from '@styles/fonts';
 
-const SettingsScreen = ({ navigation }: any) => {
+const SettingsScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [darkMode, setDarkMode] = useState(false);
   const [muted, setMuted] = useState(false);
   const [customNotifications, setCustomNotifications] = useState(true);
@@ -28,10 +29,7 @@ const SettingsScreen = ({ navigation }: any) => {
   };
 
   const renderLink = (title: string, screen: string) => (
-    <TouchableOpacity
-      style={styles.linkButton}
-      onPress={() => navigation.navigate(screen)}
-    >
+    <TouchableOpacity style={styles.linkButton} onPress={() => navigation.navigate(screen)}>
       <Text style={styles.linkText}>{title}</Text>
     </TouchableOpacity>
   );
@@ -81,7 +79,7 @@ const SettingsScreen = ({ navigation }: any) => {
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Selecione o idioma</Text>
-            {['Português', 'Inglês', 'Espanhol', 'Francês'].map(lang => (
+            {['Português', 'Inglês', 'Espanhol', 'Francês'].map((lang) => (
               <Pressable
                 key={lang}
                 style={styles.modalOption}
@@ -94,9 +92,7 @@ const SettingsScreen = ({ navigation }: any) => {
               style={[styles.modalOption, styles.modalCancel]}
               onPress={() => setLanguageModalVisible(false)}
             >
-              <Text style={[styles.modalOptionText, { color: 'red' }]}>
-                Cancelar
-              </Text>
+              <Text style={[styles.modalOptionText, { color: 'red' }]}>Cancelar</Text>
             </Pressable>
           </View>
         </View>
@@ -110,9 +106,7 @@ const SettingsScreen = ({ navigation }: any) => {
               style={[styles.modalOption, styles.modalCancel]}
               onPress={() => setInfoModalVisible(false)}
             >
-              <Text style={[styles.modalOptionText, { color: 'red' }]}>
-                Fechar
-              </Text>
+              <Text style={[styles.modalOptionText, { color: 'red' }]}>Fechar</Text>
             </Pressable>
           </View>
         </View>
@@ -126,7 +120,7 @@ export default SettingsScreen;
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
     paddingTop: 100
   },
   header: {
@@ -140,7 +134,7 @@ const styles = StyleSheet.create({
     zIndex: 10
   },
   headerText: {
-    color: '#fff',
+    color: colors.white,
     fontSize: fonts.size.title,
     fontWeight: '700'
   },
@@ -165,7 +159,7 @@ const styles = StyleSheet.create({
     paddingRight: 12
   },
   selectButton: {
-    backgroundColor: '#28A745',
+    backgroundColor: colors.accent,
     paddingVertical: 8,
     paddingHorizontal: 14,
     borderRadius: 6,
@@ -173,7 +167,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   selectButtonText: {
-    color: '#fff',
+    color: colors.white,
     fontWeight: '600',
     fontSize: 15
   },
@@ -208,7 +202,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
     marginBottom: 20,
-    color: '#28A745'
+    color: colors.accent
   },
   modalOption: {
     paddingVertical: 12,

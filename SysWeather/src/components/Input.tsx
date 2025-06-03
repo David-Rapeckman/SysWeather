@@ -1,13 +1,16 @@
 // /src/components/Input.tsx
-
 import React from 'react';
-import { StyleSheet, TextInput, TextInputProps } from 'react-native';
+import { TextInput, StyleSheet, TextInputProps } from 'react-native';
 import { colors } from '@styles/colors';
 import { fonts } from '@styles/fonts';
 import { metrics } from '@styles/metrics';
 
-const Input = (props: TextInputProps) => (
-  <TextInput style={styles.input} placeholderTextColor={colors.gray} {...props} />
+const Input: React.FC<TextInputProps> = (props) => (
+  <TextInput
+    style={styles.input}
+    placeholderTextColor={colors.gray}
+    {...props}
+  />
 );
 
 const styles = StyleSheet.create({
@@ -17,7 +20,8 @@ const styles = StyleSheet.create({
     borderColor: colors.lightGray,
     borderRadius: metrics.radius,
     paddingHorizontal: 12,
-    backgroundColor: colors.white,
+    backgroundColor: colors.background,
+    color: colors.white,
     fontSize: fonts.size.medium,
     marginBottom: 12
   }

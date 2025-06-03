@@ -1,5 +1,10 @@
 // /src/types/city.ts
 
+export interface City {
+  id: number;
+  name: string;
+}
+
 export interface CityWithWeather {
   id: number;
   name: string;
@@ -9,12 +14,4 @@ export interface CityWithWeather {
   minTemp: number;
   rainChance: number;
   preventions: string[];
-}
-
-export interface City {
-  id: number;
-  name: string;
-  country: string;
-  latitude: number;
-  longitude: number;
 }

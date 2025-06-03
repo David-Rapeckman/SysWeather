@@ -1,17 +1,11 @@
+// /src/contexts/AuthContext.tsx
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { api, User } from '../services/api';
 
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  role: string;
-  city: string;
-}
 interface AuthContextType {
   user: User | null;
-  token: string | null;
   signIn: (email: string, password: string) => Promise<void>;
+  signUp: (name: string, email: string, password: string, city: string) => Promise<void>;
   signOut: () => Promise<void>;
 }
 
@@ -20,33 +14,32 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
 
-  // fake sign in (sempre aceita qualquer usuário)
+  const loadUser = async () => {
+    const u = await api.getCurrentUser();
+    if (u) setUser(u);
+  };
+
   const signIn = async (email: string, password: string) => {
-    const fakeUser: User = {
-      id: 1,
-      name: "Usuário Teste",
-      email,
-      role: "user",
-      city: "São Paulo"
-    };
-    setUser(fakeUser);
-    await AsyncStorage.setItem("@user", JSON.stringify(fakeUser));
+    const logged = await api.signIn(email.trim(), password);
+    setUser(logged);
+  };
+
+  const signUp = async (name: string, email: string, password: string, city: string) => {
+    const created = await api.signUp(name.trim(), email.trim(), password, city);
+    setUser(created);
   };
 
   const signOut = async () => {
+    await api.signOut();
     setUser(null);
-    await AsyncStorage.removeItem("@user");
   };
 
   useEffect(() => {
-    (async () => {
-      const data = await AsyncStorage.getItem("@user");
-      if (data) setUser(JSON.parse(data));
-    })();
+    loadUser();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, token: null, signIn, signOut }}>
+    <AuthContext.Provider value={{ user, signIn, signUp, signOut }}>
       {children}
     </AuthContext.Provider>
   );

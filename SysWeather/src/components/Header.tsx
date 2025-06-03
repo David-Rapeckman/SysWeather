@@ -1,10 +1,9 @@
 // /src/components/Header.tsx
-
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { colors } from '@styles/colors';
-import { fonts } from '@styles/fonts';
-import { metrics } from '@styles/metrics';
+import { colors } from '../styles/colors';
+import { fonts } from '../styles/fonts';
+import { metrics } from '../styles/metrics';
 
 interface HeaderProps {
   title: string;
@@ -21,13 +20,13 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     paddingVertical: 16,
     paddingHorizontal: metrics.padding,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   title: {
     color: colors.white,
     fontSize: fonts.size.title,
-    fontWeight: 'bold'
-  }
+    fontWeight: 'bold',
+  },
 });
 
 export default Header;

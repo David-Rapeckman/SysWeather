@@ -1,6 +1,5 @@
 // /src/screens/Profile/ChangePhotoScreen.tsx
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -17,6 +16,13 @@ import { fonts } from '@styles/fonts';
 
 const ChangePhotoScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [uri, setUri] = useState<string | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      const avatar = await AsyncStorage.getItem('@sysweather:avatar');
+      if (avatar) setUri(avatar);
+    })();
+  }, []);
 
   const selecionarDaGaleria = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -79,7 +85,7 @@ export default ChangePhotoScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.background,
     alignItems: 'center',
     paddingTop: 100
   },
@@ -88,13 +94,13 @@ const styles = StyleSheet.create({
     top: 0,
     width: '100%',
     height: 79,
-    backgroundColor: colors.success,
+    backgroundColor: colors.primary,
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 10
   },
   headerText: {
-    color: '#FFFFFF',
+    color: colors.white,
     fontSize: fonts.size.title,
     fontWeight: '700'
   },
@@ -114,12 +120,12 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   buttonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
+    color: colors.white,
+    fontSize: fonts.size.medium,
     fontWeight: '600'
   },
   buttonSave: {
-    backgroundColor: colors.success
+    backgroundColor: colors.accent
   },
   saveText: {
     fontWeight: '700'

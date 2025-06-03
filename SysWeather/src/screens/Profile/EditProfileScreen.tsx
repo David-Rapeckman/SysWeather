@@ -1,5 +1,4 @@
 // /src/screens/Profile/EditProfileScreen.tsx
-
 import React, { useState, useEffect } from 'react';
 import {
   View,
@@ -72,6 +71,7 @@ const EditProfileScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
       <TextInput
         style={styles.input}
         placeholder="Email"
+        placeholderTextColor={colors.gray}
         value={email}
         onChangeText={setEmail}
         keyboardType="email-address"
@@ -100,7 +100,10 @@ const EditProfileScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Erro</Text>
             <Text style={styles.modalOptionText}>{errorMessage}</Text>
-            <Pressable style={[styles.modalOption, styles.modalCancel]} onPress={() => setShowErrorModal(false)}>
+            <Pressable
+              style={[styles.modalOption, styles.modalCancel]}
+              onPress={() => setShowErrorModal(false)}
+            >
               <Text style={[styles.modalOptionText, { color: 'red' }]}>Fechar</Text>
             </Pressable>
           </View>

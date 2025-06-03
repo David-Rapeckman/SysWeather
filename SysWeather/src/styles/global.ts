@@ -1,9 +1,8 @@
 // /src/styles/global.ts
-
 import { StyleSheet } from 'react-native';
 import { colors } from './colors';
-import { fonts } from './fonts';
 import { metrics } from './metrics';
+import { fonts } from './fonts';
 
 export const globalStyles = StyleSheet.create({
   container: {
@@ -14,11 +13,11 @@ export const globalStyles = StyleSheet.create({
   title: {
     fontSize: fonts.size.title,
     fontWeight: 'bold',
-    color: colors.primary,
-    marginBottom: 10
+    color: colors.accent,
+    marginBottom: 20
   },
   text: {
     fontSize: fonts.size.medium,
-    color: colors.black
+    color: colors.white
   }
 });

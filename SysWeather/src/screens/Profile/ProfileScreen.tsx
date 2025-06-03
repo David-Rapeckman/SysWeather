@@ -1,5 +1,4 @@
 // /src/screens/Profile/ProfileScreen.tsx
-
 import React, { useEffect, useState } from 'react';
 import {
   View,
@@ -47,7 +46,7 @@ const ProfileScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
           style={styles.editIcon}
           onPress={() => navigation.navigate('ChangePhoto')}
         >
-          <Ionicons name="pencil" size={16} color="#fff" />
+          <Ionicons name="pencil" size={16} color={colors.white} />
         </TouchableOpacity>
       </View>
 
@@ -67,7 +66,7 @@ export default ProfileScreen;
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.background,
     alignItems: 'center',
     paddingTop: 100
   },
@@ -82,7 +81,7 @@ const styles = StyleSheet.create({
     zIndex: 10
   },
   headerText: {
-    color: '#FFFFFF',
+    color: colors.white,
     fontSize: fonts.size.title,
     fontWeight: '700'
   },
@@ -106,14 +105,14 @@ const styles = StyleSheet.create({
     padding: 6
   },
   name: {
-    fontSize: 20,
+    fontSize: fonts.size.large,
     fontWeight: '600',
-    color: '#333',
+    color: colors.accent,
     marginBottom: 12
   },
   field: {
-    fontSize: 16,
-    color: '#555',
+    fontSize: fonts.size.medium,
+    color: colors.white,
     marginBottom: 8
   },
   logoutButton: {
@@ -124,8 +123,8 @@ const styles = StyleSheet.create({
     marginTop: 40
   },
   logoutText: {
-    color: '#FFFFFF',
-    fontSize: 16,
+    color: colors.white,
+    fontSize: fonts.size.medium,
     fontWeight: '600'
   }
 });

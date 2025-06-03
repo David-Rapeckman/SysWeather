@@ -1,72 +1,86 @@
+// /src/screens/Home/HomeScreen.tsx
 import React, { useEffect, useState } from 'react';
-import { View, SafeAreaView, StyleSheet, FlatList, Text } from 'react-native';
-import { CityWithWeather } from '../../types/city';
-import { cityService } from '@services/cityService';
-import CityCard from '@components/CityCard';
+import {
+  View,
+  SafeAreaView,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+  ActivityIndicator
+} from 'react-native';
+import { City } from '@services/api';
+import { api } from '@services/api';
 import { colors } from '@styles/colors';
 import { fonts } from '@styles/fonts';
+import { globalStyles } from '@styles/global';
 
-const HomeScreen: React.FC = () => {
-  const [cities, setCities] = useState<CityWithWeather[]>([]);
+type Navigation = {
+  navigate: (screen: string) => void;
+};
+
+const HomeScreen: React.FC<{ navigation: Navigation }> = ({ navigation }) => {
+  const [cities, setCities] = useState<City[]>([]);
   const [loading, setLoading] = useState(true);
+  const [errorFetch, setErrorFetch] = useState('');
 
   useEffect(() => {
-    fetchCitiesWithWeather();
-  }, []);
+    const unsubscribe = navigation.addListener('focus', fetchCities);
+    return unsubscribe;
+  }, [navigation]);
 
-  // Função para buscar as cidades e o clima de cada uma
-  const fetchCitiesWithWeather = async () => {
+  const fetchCities = async () => {
+    setLoading(true);
     try {
-      const cityResp = await cityService.get<Array<{ id: number; name: string }>>('/cities');
-      const cityList = cityResp.data;
-      const data: CityWithWeather[] = [];
-      for (const c of cityList) {
-        // Aqui tipa corretamente a resposta do clima!
-        const weatherResp = await cityService.get<CityWithWeather>(`/weather/${c.id}`);
-        const w = weatherResp.data;
-        data.push({
-          id: c.id,
-          name: c.name,
-          currentTemp: w.currentTemp,
-          currentCondition: w.currentCondition,
-          maxTemp: w.maxTemp,
-          minTemp: w.minTemp,
-          rainChance: w.rainChance,
-          preventions: w.preventions,
-        });
-      }
-      setCities(data);
-    } catch (error) {
-      // Aqui pode tratar erro se quiser
-      setCities([]);
+      const list = await api.getCities();
+      setCities(list);
+    } catch (err: any) {
+      setErrorFetch(err.message || 'Erro ao carregar cidades.');
     } finally {
       setLoading(false);
     }
   };
 
-  const renderItem = ({ item }: { item: CityWithWeather }) => (
-    <CityCard city={item} onPress={() => {}} />
+  const renderItem = ({ item }: { item: City }) => (
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() => navigation.navigate('CityAlerts', { cityId: item.id })}
+    >
+      <Text style={styles.cityName}>{item.name}</Text>
+    </TouchableOpacity>
   );
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Weather</Text>
-      </View>
+      <Text style={globalStyles.title}>Cidades Cadastradas</Text>
+
       {loading ? (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text>Carregando...</Text>
+        <View style={styles.center}>
+          <ActivityIndicator size="large" color={colors.accent} />
+        </View>
+      ) : errorFetch ? (
+        <View style={styles.center}>
+          <Text style={styles.errorText}>{errorFetch}</Text>
+        </View>
+      ) : cities.length === 0 ? (
+        <View style={styles.center}>
+          <Text style={styles.noCitiesText}>Nenhuma cidade cadastrada.</Text>
         </View>
       ) : (
         <FlatList
           data={cities}
-          horizontal
-          showsHorizontalScrollIndicator={false}
           keyExtractor={(item) => item.id.toString()}
-          contentContainerStyle={styles.list}
           renderItem={renderItem}
+          contentContainerStyle={styles.list}
         />
       )}
+
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={() => navigation.navigate('AddCity')}
+      >
+        <Text style={styles.addButtonText}>+ Adicionar Cidade</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -76,26 +90,53 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#E0F7FA',
-    paddingTop: 100
-  },
-  header: {
-    position: 'absolute',
-    top: 0,
-    width: '100%',
-    height: 79,
-    backgroundColor: colors.primary,
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 10
-  },
-  headerText: {
-    color: colors.white,
-    fontSize: fonts.size.title,
-    fontWeight: '700'
+    backgroundColor: colors.background,
+    padding: 20
   },
   list: {
-    paddingLeft: 16,
-    paddingTop: 20
+    paddingBottom: 80
+  },
+  card: {
+    backgroundColor: colors.lightGray,
+    padding: 16,
+    borderRadius: 12,
+    marginBottom: 12
+  },
+  cityName: {
+    fontSize: fonts.size.large,
+    color: colors.accent,
+    fontWeight: '700'
+  },
+  center: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  errorText: {
+    color: colors.danger,
+    fontSize: fonts.size.medium
+  },
+  noCitiesText: {
+    color: colors.gray,
+    fontSize: fonts.size.medium
+  },
+  addButton: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    backgroundColor: colors.primary,
+    paddingVertical: 14,
+    paddingHorizontal: 18,
+    borderRadius: 30,
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 6,
+    elevation: 4
+  },
+  addButtonText: {
+    color: colors.white,
+    fontSize: fonts.size.medium,
+    fontWeight: '600'
   }
 });

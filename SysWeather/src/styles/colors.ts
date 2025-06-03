@@ -1,12 +1,10 @@
 // /src/styles/colors.ts
-
 export const colors = {
-  primary: '#1E88E5',
-  background: '#F5F5F5',
+  background: '#000000',
+  primary: '#004d00',
+  accent: '#d4af37',
   white: '#FFFFFF',
-  black: '#000000',
-  gray: '#757575',
-  lightGray: '#E0E0E0',
-  success: '#43A047',
-  danger: '#E53935'
+  gray: '#AAAAAA',
+  lightGray: '#333333',
+  danger: '#d40000'
 };
