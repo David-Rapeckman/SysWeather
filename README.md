@@ -47,8 +47,7 @@ SysWeather é um aplicativo em React Native que exibe informações meteorológi
    ```bash
    # Usando npm
    npm install
-2.1. Ou usando Yarn
-   ```bash
+   # Ou usando Yarn
    yarn install    
    ```
 3. Inicie o servidor de desenvolvimento
@@ -70,7 +69,7 @@ Porto Alegre
 Salvador
 
 
-#Detalhes do Card de Cidade
+## Detalhes do Card de Cidade
 
 - Cada card apresenta:
 
@@ -96,7 +95,7 @@ Salvador
 
 - Os usuários podem adicionar cidades personalizadas, que são salvas via AsyncStorage.
 
-Como Contribuir
+## Como Contribuir
 
 Faça um fork do repositório
  ```bash
