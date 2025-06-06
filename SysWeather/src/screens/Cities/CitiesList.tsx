@@ -29,7 +29,7 @@ const sheltersData: ShelterInfo[] = [
     address: 'Centro de Acolhida – Rua da Figueira, s/n, Sé, SP',
     phone: '(11) 4000-1234',
     capacity: 200,
-    foodUnits: 300,
+    foodUnits: 40,
     priority: 4,
   },
   {
@@ -37,7 +37,7 @@ const sheltersData: ShelterInfo[] = [
     address: 'Abrigo Solidário – Rua Helvétia, s/n, SP',
     phone: '(11) 3000-5678',
     capacity: 150,
-    foodUnits: 200,
+    foodUnits: 55,
     priority: 3,
   },
   {
@@ -45,7 +45,7 @@ const sheltersData: ShelterInfo[] = [
     address: 'Abrigo Municipal – Rua Afonso Cavalcanti, 455, RJ',
     phone: '(21) 2500-8765',
     capacity: 180,
-    foodUnits: 250,
+    foodUnits: 29,
     priority: 4,
   },
   {
@@ -53,7 +53,7 @@ const sheltersData: ShelterInfo[] = [
     address: 'Centro de Acolhimento – Rua Santa Luzia, 400, RJ',
     phone: '(21) 3500-4321',
     capacity: 120,
-    foodUnits: 180,
+    foodUnits: 56,
     priority: 2,
   },
   {
@@ -61,7 +61,7 @@ const sheltersData: ShelterInfo[] = [
     address: 'Abrigo da Prefeitura – Av. Amazonas, 6200, BH',
     phone: '(31) 3333-7890',
     capacity: 160,
-    foodUnits: 220,
+    foodUnits: 62,
     priority: 3,
   },
   {
@@ -69,7 +69,7 @@ const sheltersData: ShelterInfo[] = [
     address: 'Centro POP – Rua dos Goitacazes, 300, BH',
     phone: '(31) 4444-1234',
     capacity: 100,
-    foodUnits: 130,
+    foodUnits: 42,
     priority: 2,
   },
   {
@@ -77,7 +77,7 @@ const sheltersData: ShelterInfo[] = [
     address: 'Abrigo Municipal – Rua Cruz Machado, 67, Curitiba, PR',
     phone: '(41) 2567-8901',
     capacity: 140,
-    foodUnits: 190,
+    foodUnits: 24,
     priority: 3,
   },
   {
@@ -93,7 +93,7 @@ const sheltersData: ShelterInfo[] = [
     address: 'Abrigo Municipal – Av. Loureiro da Silva, 144, POA, RS',
     phone: '(51) 3000-1111',
     capacity: 130,
-    foodUnits: 170,
+    foodUnits: 67,
     priority: 2,
   },
   {
@@ -101,7 +101,7 @@ const sheltersData: ShelterInfo[] = [
     address: 'Centro Social – Rua Voluntários da Pátria, 500, POA, RS',
     phone: '(51) 4000-2222',
     capacity: 110,
-    foodUnits: 160,
+    foodUnits: 50,
     priority: 2,
   },
   {
@@ -271,7 +271,7 @@ const ShelterStatsScreen: React.FC = () => {
 
         {/* Pizza: Unidades de Comida por Cidade */}
         <View style={styles.card}>
-          <Text style={styles.cardTitle}>Unid. de Comida por Cidade</Text>
+          <Text style={styles.cardTitle}>Qtd. de Dias com Comida</Text>
           <PieChart
             data={pieDataFood}
             width={screenWidth}
