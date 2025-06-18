@@ -15,7 +15,7 @@ import Header from '@components/Header';
 import { colors } from '@styles/colors';
 import { fonts } from '@styles/fonts';
 
-const ProfileScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
+const ProfileScreen: React.FC<{ navigation: any }> = ({ navigation }: { navigation: any }) => {
   const { user, signOut } = useAuth();
   const [storedAvatar, setStoredAvatar] = useState<string | null>(null);
 

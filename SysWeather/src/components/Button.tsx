@@ -9,7 +9,7 @@ interface ButtonProps extends TouchableOpacityProps {
   title: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ title, ...rest }) => (
+const Button: React.FC<ButtonProps> = ({ title, ...rest }: ButtonProps) => (
   <TouchableOpacity style={styles.button} activeOpacity={0.8} {...rest}>
     <Text style={styles.buttonText}>{title}</Text>
   </TouchableOpacity>

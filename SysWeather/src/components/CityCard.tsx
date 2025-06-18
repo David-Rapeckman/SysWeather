@@ -11,7 +11,7 @@ interface CityCardProps {
   onPress: () => void;
 }
 
-const CityCard: React.FC<CityCardProps> = ({ city, onPress }) => {
+const CityCard: React.FC<CityCardProps> = ({ city, onPress }: CityCardProps) => {
   /**
    * Seleciona o ícone local baseado em city.mainCondition.
    * Espera valores como “rain”, “thunderstorm”, “snow”, “clear”, “clouds”, “mist”, “fog”.
@@ -53,7 +53,7 @@ const CityCard: React.FC<CityCardProps> = ({ city, onPress }) => {
       <View style={styles.separator} />
 
       <Text style={styles.subtitle}>Prevenções:</Text>
-      {city.preventions.map((p, i) => (
+      {city.preventions.map((p: string, i: number) => (
         <Text key={i} style={styles.item}>• {p}</Text>
       ))}
 

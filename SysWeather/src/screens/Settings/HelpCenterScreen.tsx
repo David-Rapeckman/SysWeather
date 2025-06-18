@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { colors } from '@styles/colors';
 import { fonts } from '@styles/fonts';
 
-const HelpCenterScreen: React.FC<{ navigation: any }> = ({ navigation }) => (
+const HelpCenterScreen: React.FC<{ navigation: any }> = ({ navigation }: { navigation: any }) => (
   <SafeAreaView style={styles.safeArea}>
     <View style={styles.header}>
       <Text style={styles.headerText}>Ajuda</Text>

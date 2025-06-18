@@ -160,14 +160,14 @@ const ShelterStatsScreen: React.FC = () => {
   // Preparar dados por cidade
   const cityNames = Object.keys(grouped);
   const capacityDataset = cityNames.map((city) =>
-    grouped[city].reduce((sum, s) => sum + s.capacity, 0)
+    grouped[city].reduce((sum: number, s: ShelterInfo) => sum + s.capacity, 0)
   );
   const foodDataset = cityNames.map((city) =>
-    grouped[city].reduce((sum, s) => sum + s.foodUnits, 0)
+    grouped[city].reduce((sum: number, s: ShelterInfo) => sum + s.foodUnits, 0)
   );
   const priorityDataset = cityNames.map((city) =>
     Math.round(
-      grouped[city].reduce((sum, s) => sum + s.priority, 0) /
+      grouped[city].reduce((sum: number, s: ShelterInfo) => sum + s.priority, 0) /
         grouped[city].length
     )
   );
