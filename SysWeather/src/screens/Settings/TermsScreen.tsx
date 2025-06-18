@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { fonts } from '@styles/fonts';
 import { colors } from '@styles/colors';
 
-const TermsScreen: React.FC<{ navigation: any }> = ({ navigation }) => (
+const TermsScreen: React.FC<{ navigation: any }> = ({ navigation }: { navigation: any }) => (
   <SafeAreaView style={styles.safeArea}>
     <View style={styles.header}>
       <Text style={styles.headerText}>Termos</Text>

@@ -14,7 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { colors } from '@styles/colors';
 import { fonts } from '@styles/fonts';
 
-const ChangePhotoScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
+const ChangePhotoScreen: React.FC<{ navigation: any }> = ({ navigation }: { navigation: any }) => {
   const [uri, setUri] = useState<string | null>(null);
 
   useEffect(() => {

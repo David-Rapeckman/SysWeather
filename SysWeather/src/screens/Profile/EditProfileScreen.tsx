@@ -16,7 +16,7 @@ import { colors } from '@styles/colors';
 import { fonts } from '@styles/fonts';
 import { metrics } from '@styles/metrics';
 
-const EditProfileScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
+const EditProfileScreen: React.FC<{ navigation: any }> = ({ navigation }: { navigation: any }) => {
   const [email, setEmail] = useState('');
   const [birthDate, setBirthDate] = useState<Date>(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);

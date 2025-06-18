@@ -19,7 +19,7 @@ type Navigation = {
   goBack: () => void;
 };
 
-const AddCityScreen: React.FC<{ navigation: Navigation }> = ({ navigation }) => {
+const AddCityScreen: React.FC<{ navigation: Navigation }> = ({ navigation }: { navigation: Navigation }) => {
   const [cityName, setCityName] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [showErrorModal, setShowErrorModal] = useState(false);

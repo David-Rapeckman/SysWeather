@@ -35,13 +35,13 @@ const SettingsScreen: React.FC = () => {
         </View>
         <View style={styles.settingItem}>
           <Text style={styles.label}>Mutar notificações:</Text>
-          <Switch value={muted} onValueChange={() => setMuted((prev) => !prev)} />
+          <Switch value={muted} onValueChange={() => setMuted((prev: boolean) => !prev)} />
         </View>
         <View style={styles.settingItem}>
           <Text style={styles.label}>Notificações personalizadas:</Text>
           <Switch
             value={customNotifications}
-            onValueChange={() => setCustomNotifications((prev) => !prev)}
+            onValueChange={() => setCustomNotifications((prev: boolean) => !prev)}
           />
         </View>
 
